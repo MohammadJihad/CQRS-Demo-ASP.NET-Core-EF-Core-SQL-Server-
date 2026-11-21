@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\CqrsDemo.Api\CqrsDemo.Api.csproj" />
+    <ProjectReference Include="..\..\src\CqrsDemo.Application\CqrsDemo.Application.csproj" />
+    <ProjectReference Include="..\..\src\CqrsDemo.Domain\CqrsDemo.Domain.csproj" />
+    <ProjectReference Include="..\..\src\CqrsDemo.Infrastructure\CqrsDemo.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>

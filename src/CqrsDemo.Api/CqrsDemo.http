@@ -1,0 +1,54 @@
+@host = http://localhost:5199
+@id = 0b5f1c1e-0001-4c3a-9a51-5a3b9f0c0001
+
+### 1. Create (201 + Location header)
+# @name create
+POST {{host}}/api/products
+Content-Type: application/json
+
+{ "name": "Walkthrough Widget", "description": "demo", "price": 19.99, "stockQuantity": 5 }
+
+### 2. Get by id (use the id from step 1)
+@newId = {{create.response.body.$.id}}
+GET {{host}}/api/products/{{newId}}
+
+### 3. Update price (204)
+PUT {{host}}/api/products/{{newId}}
+Content-Type: application/json
+
+{ "name": "Walkthrough Widget", "description": "demo", "price": 24.50 }
+
+### 4. Adjust stock (200)
+POST {{host}}/api/products/{{newId}}/stock-adjustments
+Content-Type: application/json
+
+{ "quantityChange": -3 }
+
+### 5. Adjust stock below zero (400)
+POST {{host}}/api/products/{{newId}}/stock-adjustments
+Content-Type: application/json
+
+{ "quantityChange": -10 }
+
+### 6. List, filter, paginate
+GET {{host}}/api/products?page=1&pageSize=5
+###
+GET {{host}}/api/products?name=mouse&page=1&pageSize=2
+
+### 7. Invalid paging (400)
+GET {{host}}/api/products?page=0&pageSize=500
+
+### 8. Invalid create (400)
+POST {{host}}/api/products
+Content-Type: application/json
+
+{ "name": "", "price": -1, "stockQuantity": -2 }
+
+### 9. Delete (204)
+DELETE {{host}}/api/products/{{newId}}
+
+### 10. Get after delete (404)
+GET {{host}}/api/products/{{newId}}
+
+### Seeded product lookup
+GET {{host}}/api/products/{{id}}
